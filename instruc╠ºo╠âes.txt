@@ -1,0 +1,42 @@
+Instruções para Compilação e execução.
+
+Todos os programas foram escritos e compilados em ambiente UNIX (OS X/Ubuntu).
+O programa que atende às especificações de entrada conforme indicado no projeto (./executável vetor.txt elemento) corresponde ao
+arquivo projeto_1.c. Para compilá-lo, basta escrever
+$ gcc projeto_1.c -o (nome do executavel) (em algumas versões do Linux, foi necessário compilar como gcc projeto_1.c -lrt)
+
+Para gerar os gráficos que foram utilizados no relatório, foram elaborados dois programas extras.
+
+i) Para elaborar o gráfico com vários pontos, foi feito o programa coleta_dados.c . Nesse programa, vetores aleatórios são gerados
+e, sem armazená-los  no disco rígido, é contado o número de vezes que o elemento passado como parâmetro aparece no vetor. A compilação
+do programa é semelhante à do projeto_1.c e sua execuçãe é da forma:
+
+$./coleta_dados elemento
+
+Como saída, o programa gera um arquivo "dados_gerados.txt" com o tamanho dos vetores gerados, e os tempos de execução das funções
+de O(N) e O (LogN), respectivamente. Os dados referentes à cada tamanho são separados por linha.
+
+ii) Para elaborar o gráfico com pontos, armazenando os vetores que servem de modelo em arquivos .txt para posterior conferência,
+foi elaborado o programa coleta_dados_com_modelo.c. A compilação e execução do programa segue a mesma lógica e parâmetros do
+coleta_dados.c. Entretanto, para executar o programa é necessário antes gerar os arquivos que contém os vetores que servirão
+de base para o cálculo dos tempos. Esses vetores têm tamanhos 10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 10000000, 50000000, 100000000, 150000000, 200000000, 250000000, 300000000, 350000000, 400000000, 450000000, 500000000. 
+Como os arquivos com vetores maiores são muito grandes, não foi possível fazer upload dos mesmos. Entretanto, eles podem ser gerados
+a partir do programa geravetor.c presente na pasta Dados. Compila-se geravetor.c com gcc e executa-o como
+& ./geravetor 500000000     (500 milhões)
+Dessa forma, os vetores são gerados e salvos em arquivos que permanecerão na pasta Dados.
+Agora, já se pode executar o programa coleta_dados_com_modelos como
+
+$./coleta_dados_com_modelo elemento
+
+O programa lê o os arquivos dentro da pasta Dados e gera dentro do diretório atual um arquivo "dados_gerados_com_modelo.txt",
+contendo o tamanho de cada vetor analizado e os tempos de execução das funções de O(N) e O(LogN), respectivamente.
+
+Em todos os gráficos elaborados, o elemento procurado foi o elemento 1. A função geravetor e o programa coleta_dados geram
+vetores com apenas um elemento 1, de forma que ao executar a função conta_logn(n), é percorrido todos os nós da árvore de recor-
+rência em pelo menos um ramo. Para outros valores, pode-se percorrer um número constante de ramos até o último nó ou então esse nó
+pode nem ser alcançado. Entretanto, em nenhum caso a árvore é completa até o seu último nó.
+Dessa forma, a complexidade da função conta_logn(...) é da Ordem de log2(N).
+
+OBS.: O programa coleta_dados inicia os cálculo com vetor de tamanho 100 e vai gerando vetores 10% maiores a cada iteração, até chegar a um tamanho próximo de 800 milhões. Dessa forma, a execução do programa demora a ser finalizada. Quando o programa finalizar, uma mensagem escrito “FIM” é mostrada na tela.
+
+Incluímos seis arquivos de teste para o programa projeto_1, intitulados de vetorN.txt (1<=N<=6). Os resultados obtidos foram incluídos em uma tabela anexada ao final do relatório.
